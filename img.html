@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dark Night Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .top-right {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: #fff;
+      background: none;
+      padding: 0;
+      border: none;
+      text-decoration: none;
+      box-shadow: none;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+      z-index: 1000;
+    }
+
+    .top-right.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 80px 20px 20px;
+      gap: 20px;
+    }
+
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .image-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .download-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      border: none;
+      border-radius: 50%;
+      padding: 8px 10px;
+      cursor: pointer;
+      color: white;
+      font-size: 18px;
+      text-decoration: none;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (min-width: 600px) {
+      .gallery img {
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back button -->
+  <a href="home.html" class="top-right"> →</a>
+
+  <div class="gallery">
+    <!-- Repeat for each image -->
+    <div class="image-wrapper">
+      <img src="img1.jpeg" alt="Image 1" />
+      <button class="download-btn" onclick="downloadImage('img1.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img2.jpeg" alt="Image 2" />
+      <button class="download-btn" onclick="downloadImage('img2.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img3.jpeg" alt="Image 3" />
+      <button class="download-btn" onclick="downloadImage('img3.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img4.jpeg" alt="Image 4" />
+      <button class="download-btn" onclick="downloadImage('img4.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img5.jpeg" alt="Image 5" />
+      <button class="download-btn" onclick="downloadImage('img5.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img6.jpeg" alt="Image 6" />
+      <button class="download-btn" onclick="downloadImage('img6.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img7.jpeg" alt="Image 7" />
+      <button class="download-btn" onclick="downloadImage('img7.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img8.jpeg" alt="Image 8" />
+      <button class="download-btn" onclick="downloadImage('img8.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img9.jpeg" alt="Image 9" />
+      <button class="download-btn" onclick="downloadImage('img9.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img10.jpeg" alt="Image 10" />
+      <button class="download-btn" onclick="downloadImage('img10.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img11.jpeg" alt="Image 11" />
+      <button class="download-btn" onclick="downloadImage('img11.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img12.jpeg" alt="Image 12" />
+      <button class="download-btn" onclick="downloadImage('img12.jpeg')" title="Download">⬇</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="img13.jpeg" alt="Image 13" />
+      <button class="download-btn" onclick="downloadImage('img13.jpeg')" title="Download">⬇</button>
+    </div>
+  </div>
+
+  <script>
+    const topButton = document.querySelector('.top-right');
+    window.addEventListener('scroll', () => {
+      topButton.classList.toggle('hidden', window.scrollY !== 0);
+    });
+
+    function downloadImage(url) {
+      fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = url.split('/').pop();
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch(err => {
+          alert("Download failed.");
+          console.error("Download error:", err);
+        });
+    }
+  </script>
+
+</body>
+</html>
